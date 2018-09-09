@@ -1,18 +1,27 @@
 defmodule Dakiya do
-  @moduledoc """
-  Documentation for Dakiya.
-  """
+  alias Dakiya.Mailgun, as: Mailgun
 
-  @doc """
-  Hello world.
+  def main(args) do
+    response = args |> parse_args |> transform |> merge_defaults |> Mailgun.send_email
+    IO.puts(response)
+  end
 
-  ## Examples
+  def parse_args(args) do
+    {params, _, _} = OptionParser.parse(args, switches: [help: :boolean])
+    params[:message] |> Poison.decode!
+  end
 
-      iex> Dakiya.hello()
-      :world
+  def transform(data) do
+    %{
+      to: data["to"],
+      subject: data["subject"],
+      html: data["body"]
+    }
+  end
 
-  """
-  def hello do
-    :world
+  def merge_defaults(data) do
+   Map.merge(%{
+      from: "shishir.das@gmail.com"
+    }, data)
   end
 end
