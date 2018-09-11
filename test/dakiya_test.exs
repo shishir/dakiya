@@ -59,6 +59,38 @@ defmodule DakiyaTest do
     assert args == Dakiya.validate(args)
   end
 
+  test "transform should load template if body is not present" do
+    args = %{
+      "to" => "shishir.das@gmail.com",
+      "subject" => "Example Email",
+      "template" => "password-reset"
+    }
+
+    expected = %{
+      to: "shishir.das@gmail.com",
+      subject: "Example Email",
+      html: "<html>Password Reset</html>",
+    }
+
+    assert expected == Dakiya.transform(args)
+  end
+
+  test "transform should load welcome-email template" do
+    args = %{
+      "to" => "shishir.das@gmail.com",
+      "subject" => "Example Email",
+      "template" => "welcome"
+    }
+
+    expected = %{
+      to: "shishir.das@gmail.com",
+      subject: "Example Email",
+      html: "<html>Welcome</html>",
+    }
+
+    assert expected == Dakiya.transform(args)
+  end
+
   test "send mail should return validation error" do
     assert {:error, [:foo]} == Dakiya.parse_args( {:error, [:foo]})
     assert {:error, [:foo]} == Dakiya.merge_defaults( {:error, [:foo]})

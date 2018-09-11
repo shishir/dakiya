@@ -34,12 +34,24 @@ defmodule Dakiya do
 
   def transform(err = {:error, _}), do: err
   def transform(data) do
-    html = data["body"]
+    html = if data["body"] do
+            data["body"]
+           else
+            load_template(data["template"])
+           end
     %{
       to: data["to"],
       subject: data["subject"],
       html: html
     }
+  end
+
+  def load_template("password-reset") do
+    "<html>Password Reset</html>"
+  end
+
+  def load_template("welcome") do
+    "<html>Welcome</html>"
   end
 
   def merge_defaults(err = {:error, _}), do: err
