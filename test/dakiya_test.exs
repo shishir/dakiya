@@ -63,7 +63,7 @@ defmodule DakiyaTest do
     args = %{
       "to" => "shishir.das@gmail.com",
       "subject" => "Example Email",
-      "template" => "password-reset"
+      "template" => %{"name" => "password-reset", "message" => "Welcome"}
     }
 
     expected = %{
@@ -79,7 +79,7 @@ defmodule DakiyaTest do
     args = %{
       "to" => "shishir.das@gmail.com",
       "subject" => "Example Email",
-      "template" => "welcome"
+      "template" => %{"name" => "welcome", "message" => "Welcome"}
     }
 
     expected = %{

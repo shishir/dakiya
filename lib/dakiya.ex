@@ -37,7 +37,7 @@ defmodule Dakiya do
     html = if data["body"] do
             data["body"]
            else
-            load_template(data["template"])
+            load_template(data["template"]["name"], data["template"]["message"])
            end
     %{
       to: data["to"],
@@ -46,11 +46,11 @@ defmodule Dakiya do
     }
   end
 
-  def load_template("password-reset") do
+  def load_template("password-reset", message) do
     "<html>Password Reset</html>"
   end
 
-  def load_template("welcome") do
+  def load_template("welcome", message) do
     "<html>Welcome</html>"
   end
 
