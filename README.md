@@ -4,6 +4,18 @@
 
 ## Installation
 
+
+## Usage
+
+### PART 1/ PART 2 - CLI
+```
+  > ./dakiya --message="{\"to\": \"user@example.com\", \"subject\": \"Example Email\", \"body\": \"<html><body><h1>Hello World</h1></body></html>\"}"
+
+  OR
+
+  > ./dakiya --message="{\"to\": \"user@example.com\", \"subject\": \"Example Email\", \"template\": {\"name\":\"password-reset\", \"message\":\"Password reset\"} }"
+```
+
 ## Assumptions
 
 - **Part 1**:
