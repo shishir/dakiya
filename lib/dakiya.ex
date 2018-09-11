@@ -8,7 +8,7 @@ defmodule Dakiya do
 
   def validate(args) do
     acc = validate_presence_of("to", args, [])
-    acc = validate_presence_of("body", args, acc)
+    acc = validate_presence_of("body", args, acc, fn(v) -> Map.has_key?(v, "template") end)
     acc = validate_presence_of("subject", args, acc)
     if length(acc) == 0 do
       args
@@ -17,8 +17,8 @@ defmodule Dakiya do
     end
   end
 
-  def validate_presence_of(field, data, acc) do
-    acc = if "" == data[field] or nil == data[field] do
+  def validate_presence_of(field, data, acc, skip_if \\ fn(x) -> false end) do
+    acc = if ("" == data[field] or nil == data[field]) and !skip_if.(data) do
       acc ++ [{field, "cannot be blank"}]
     else
       acc
@@ -34,10 +34,11 @@ defmodule Dakiya do
 
   def transform(err = {:error, _}), do: err
   def transform(data) do
+    html = data["body"]
     %{
       to: data["to"],
       subject: data["subject"],
-      html: data["body"]
+      html: html
     }
   end
 

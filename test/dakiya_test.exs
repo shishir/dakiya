@@ -50,6 +50,15 @@ defmodule DakiyaTest do
     assert {:error, [{"to", "cannot be blank"},{"body", "cannot be blank"},{"subject", "cannot be blank"}]} == Dakiya.validate(args)
   end
 
+  test "validate if template is passed, body is optional and vica versa" do
+    args = %{
+      "to" => "a@b.com",
+      "subject" => "foobar",
+      "template" => "password-reset"
+    }
+    assert args == Dakiya.validate(args)
+  end
+
   test "send mail should return validation error" do
     assert {:error, [:foo]} == Dakiya.parse_args( {:error, [:foo]})
     assert {:error, [:foo]} == Dakiya.merge_defaults( {:error, [:foo]})
