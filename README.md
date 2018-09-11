@@ -4,18 +4,14 @@
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `dakiya` to your list of dependencies in `mix.exs`:
+## Assumptions
 
-```elixir
-def deps do
-  [
-    {:dakiya, "~> 0.1.0"}
-  ]
-end
-```
+- **Part 1**:
+ - validations are not exhaustive. It is demonstration how validation errors can be handled.
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/dakiya](https://hexdocs.pm/dakiya).
+- **Part 2**
+  - validations do not check for the validity of template variables or if the template exists. If implemented
+  will follow the same pattern as other validation.
+
+
 
