@@ -2,15 +2,37 @@ defmodule Dakiya do
   alias Dakiya.Mailgun, as: Mailgun
 
   def main(args) do
-    response = args |> parse_args |> transform |> merge_defaults |> Mailgun.send_email
-    IO.puts(response)
+    response = args |> parse_args |> validate |> transform |> merge_defaults |> Mailgun.send_email
+    IO.inspect(response)
   end
 
+  def validate(args) do
+    acc = validate_presence_of("to", args, [])
+    acc = validate_presence_of("body", args, acc)
+    acc = validate_presence_of("subject", args, acc)
+    if length(acc) == 0 do
+      args
+    else
+      {:error,  acc}
+    end
+  end
+
+  def validate_presence_of(field, data, acc) do
+    acc = if "" == data[field] or nil == data[field] do
+      acc ++ [{field, "cannot be blank"}]
+    else
+      acc
+    end
+    acc
+  end
+
+  def parse_args(err = {:error, _}), do: err
   def parse_args(args) do
     {params, _, _} = OptionParser.parse(args, switches: [help: :boolean])
     params[:message] |> Poison.decode!
   end
 
+  def transform(err = {:error, _}), do: err
   def transform(data) do
     %{
       to: data["to"],
@@ -19,6 +41,7 @@ defmodule Dakiya do
     }
   end
 
+  def merge_defaults(err = {:error, _}), do: err
   def merge_defaults(data) do
    Map.merge(%{
       from: "shishir.das@gmail.com"
