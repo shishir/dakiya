@@ -47,11 +47,11 @@ defmodule Dakiya do
   end
 
   def load_template("password-reset", message) do
-    "<html>Password Reset</html>"
+    EEx.eval_file "#{__DIR__}/templates/password-reset.html.eex", [message: message]
   end
 
   def load_template("welcome", message) do
-    "<html>Welcome</html>"
+    EEx.eval_file "#{__DIR__}/templates/welcome.html.eex", [message: message]
   end
 
   def merge_defaults(err = {:error, _}), do: err

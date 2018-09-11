@@ -16,7 +16,7 @@
   > ./dakiya --message="{\"to\": \"user@example.com\", \"subject\": \"Example Email\", \"template\": {\"name\":\"password-reset\", \"message\":\"Password reset\"} }"
 ```
 
-## Assumptions
+## Assumptions/Constraints
 
 - **Part 1**:
  - validations are not exhaustive. It is demonstration how validation errors can be handled.

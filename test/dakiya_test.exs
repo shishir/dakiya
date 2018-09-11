@@ -63,13 +63,13 @@ defmodule DakiyaTest do
     args = %{
       "to" => "shishir.das@gmail.com",
       "subject" => "Example Email",
-      "template" => %{"name" => "password-reset", "message" => "Welcome"}
+      "template" => %{"name" => "password-reset", "message" => "Done!"}
     }
 
     expected = %{
       to: "shishir.das@gmail.com",
       subject: "Example Email",
-      html: "<html>Password Reset</html>",
+      html: "<html><body>Password Reset,Done!</body></html>",
     }
 
     assert expected == Dakiya.transform(args)
@@ -79,13 +79,13 @@ defmodule DakiyaTest do
     args = %{
       "to" => "shishir.das@gmail.com",
       "subject" => "Example Email",
-      "template" => %{"name" => "welcome", "message" => "Welcome"}
+      "template" => %{"name" => "welcome", "message" => "Fabulous"}
     }
 
     expected = %{
       to: "shishir.das@gmail.com",
       subject: "Example Email",
-      html: "<html>Welcome</html>",
+      html: "<html><body>Welcome, Fabulous</body></html>",
     }
 
     assert expected == Dakiya.transform(args)
