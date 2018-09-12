@@ -1,6 +1,9 @@
 defmodule DakiyaTest do
   use ExUnit.Case
   doctest Dakiya
+  import Dakiya.Mailgun
+  import Dakiya.Mailer
+  import Cli
 
   test "parses message out" do
     args = ["--message={\"to\": \"shishir.das@gmail.com\", \"subject\":  \"Example Email\", \"body\":  \"<html>foobar</html>\"}"]
@@ -9,7 +12,7 @@ defmodule DakiyaTest do
               "subject" => "Example Email",
               "to" => "shishir.das@gmail.com"
     }
-    assert expected == Dakiya.parse_args(args)
+    assert expected == parse_args(args)
   end
 
   test "transform input to mailgun accepted format" do
@@ -19,7 +22,7 @@ defmodule DakiyaTest do
       html: "<html>foobar</html>",
     }
 
-    assert expected == Dakiya.transform(%{
+    assert expected == transform(%{
               "body" => "<html>foobar</html>",
               "subject" => "Example Email",
               "to" => "shishir.das@gmail.com"
@@ -34,7 +37,7 @@ defmodule DakiyaTest do
       html: "<html>foobar</html>",
     }
 
-    assert expected == Dakiya.merge_defaults(%{
+    assert expected == merge_defaults(%{
       to: "shishir.das@gmail.com",
       subject: "Example Email",
       html: "<html>foobar</html>",
@@ -47,7 +50,7 @@ defmodule DakiyaTest do
       "subject" => "",
       "to" => ""
     }
-    assert {:error, [{"to", "cannot be blank"},{"body", "cannot be blank"},{"subject", "cannot be blank"}]} == Dakiya.validate(args)
+    assert {:error, [{"to", "cannot be blank"},{"body", "cannot be blank"},{"subject", "cannot be blank"}]} == validate(args)
   end
 
   test "validate if template is passed, body is optional and vica versa" do
@@ -56,7 +59,7 @@ defmodule DakiyaTest do
       "subject" => "foobar",
       "template" => "password-reset"
     }
-    assert args == Dakiya.validate(args)
+    assert args == validate(args)
   end
 
   test "transform should load template if body is not present" do
@@ -72,7 +75,7 @@ defmodule DakiyaTest do
       html: "<html><body>Password Reset,Done!</body></html>",
     }
 
-    assert expected == Dakiya.transform(args)
+    assert expected == transform(args)
   end
 
   test "transform should load welcome-email template" do
@@ -88,13 +91,13 @@ defmodule DakiyaTest do
       html: "<html><body>Welcome, Fabulous</body></html>",
     }
 
-    assert expected == Dakiya.transform(args)
+    assert expected == transform(args)
   end
 
   test "send mail should return validation error" do
-    assert {:error, [:foo]} == Dakiya.parse_args( {:error, [:foo]})
-    assert {:error, [:foo]} == Dakiya.merge_defaults( {:error, [:foo]})
-    assert {:error, [:foo]} == Dakiya.transform( {:error, [:foo]})
-    assert {:error, [:foo]} == Dakiya.Mailgun.send_email( {:error, [:foo]})
+    assert {:error, [:foo]} == parse_args( {:error, [:foo]})
+    assert {:error, [:foo]} == merge_defaults( {:error, [:foo]})
+    assert {:error, [:foo]} == transform( {:error, [:foo]})
+    assert {:error, [:foo]} == send_email( {:error, [:foo]})
   end
 end
