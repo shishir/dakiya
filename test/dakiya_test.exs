@@ -1,6 +1,6 @@
 defmodule DakiyaTest do
   use ExUnit.Case
-  doctest Dakiya
+
   import Dakiya.Mailgun
   import Dakiya.Mailer
   import Cli
@@ -50,7 +50,7 @@ defmodule DakiyaTest do
       "subject" => "",
       "to" => ""
     }
-    assert {:error, [{"to", "cannot be blank"},{"body", "cannot be blank"},{"subject", "cannot be blank"}]} == validate(args)
+    assert {:error, [%{"to" => "cannot be blank"},%{"body" => "cannot be blank"},%{"subject" => "cannot be blank"}]} == validate(args)
   end
 
   test "validate if template is passed, body is optional and vica versa" do

@@ -5,14 +5,14 @@ defmodule Dakiya.Mailgun do
     domain_name = System.get_env("MAILGUN_DOMAIN_NAME")
     base_url    = "https://api:#{api_key}@api.mailgun.net/v3/#{domain_name}"
     headers     = %{"Content-type" => "application/x-www-form-urlencoded"}
-    HTTPoison.post(base_url, URI.encode_query(data), headers)
-    # case HTTPoison.post(base_url, URI.encode_query(data), headers) do
-    #   {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-    #     body
-    #   {:ok, %HTTPoison.Response{status_code: 404}} ->
-    #     "Not found :("
-    #   {:error, %HTTPoison.Error{reason: reason}} ->
-    #     reason
-    # end
+
+    case HTTPoison.post(base_url, URI.encode_query(data), headers) do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+        {:ok, body}
+      {:ok, %HTTPoison.Response{status_code: 404}} ->
+        {:ok, "Not found"}
+      {:error, %HTTPoison.Error{reason: reason}} ->
+        {:error, reason}
+    end
   end
 end

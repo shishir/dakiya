@@ -11,9 +11,9 @@ defmodule Dakiya.Mailer do
     data
   end
 
-  def validate_presence_of(field, data, acc, skip_if \\ fn(x) -> false end) do
+  defp validate_presence_of(field, data, acc, skip_if \\ fn(x) -> false end) do
     acc = if ("" == data[field] or nil == data[field]) and !skip_if.(data) do
-      acc ++ [{field, "cannot be blank"}]
+      acc ++ [%{field => "cannot be blank"}]
     else
       acc
     end
@@ -34,6 +34,13 @@ defmodule Dakiya.Mailer do
     }
   end
 
+  def merge_defaults(err = {:error, _}), do: err
+  def merge_defaults(data) do
+   Map.merge(%{
+      from: "shishir.das@gmail.com"
+    }, data)
+  end
+
   def load_template("password-reset", message) do
     EEx.eval_file "#{__DIR__}/../templates/password-reset.html.eex", [message: message]
   end
@@ -42,10 +49,4 @@ defmodule Dakiya.Mailer do
     EEx.eval_file "#{__DIR__}/../templates/welcome.html.eex", [message: message]
   end
 
-  def merge_defaults(err = {:error, _}), do: err
-  def merge_defaults(data) do
-   Map.merge(%{
-      from: "shishir.das@gmail.com"
-    }, data)
-  end
 end
