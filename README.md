@@ -29,12 +29,13 @@
   curl -d"{\"to\": \"shishir.das@gmail.com\", \"subject\": \"foo bar baz\", \"body\": \"<html><body><h1>Hello World</h1></body></html>\"}" -H"Content-Type: application/json" localhost:8080/create
 ```
 
-### PART 1/ PART 2 - CLI
+### CLI
 ```
+  # With body
   > ./dakiya --message="{\"to\": \"user@example.com\", \"subject\": \"Example Email\", \"body\": \"<html><body><h1>Hello World</h1></body></html>\"}"
 
   OR
-
+  # With template
   > ./dakiya --message="{\"to\": \"user@example.com\", \"subject\": \"Example Email\", \"template\": {\"name\":\"password-reset\", \"message\":\"Password reset\"} }"
 ```
 
