@@ -1,6 +1,6 @@
 # Dakiya
 
-  Is a enables sending emails via CLI or a Rest end-point. Its used Mailgun in the background.
+  Enables sending emails via CLI or a Rest end-point. Its used Mailgun in the background.
 
 ## Installation/Running
 ```
