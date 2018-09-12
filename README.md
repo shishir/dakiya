@@ -18,18 +18,8 @@
 
 ## Usage
 
-### CLI
 
-```
-./dakiya --message="{\"to\": \"user@example.com\", \"subject\": \"Example Email\", \"body\": \"<html><body><h1>Hello World</h1></body></html>\"}"
-```
-
-### Web
-```
-  curl -d"{\"to\": \"shishir.das@gmail.com\", \"subject\": \"foo bar baz\", \"body\": \"<html><body><h1>Hello World</h1></body></html>\"}" -H"Content-Type: application/json" localhost:8080/create
-```
-
-### CLI
+#### CLI
 ```
   # With body
   > ./dakiya --message="{\"to\": \"user@example.com\", \"subject\": \"Example Email\", \"body\": \"<html><body><h1>Hello World</h1></body></html>\"}"
@@ -37,6 +27,12 @@
   OR
   # With template
   > ./dakiya --message="{\"to\": \"user@example.com\", \"subject\": \"Example Email\", \"template\": {\"name\":\"password-reset\", \"message\":\"Password reset\"} }"
+```
+
+
+#### Web
+```
+  curl -d"{\"to\": \"shishir.das@gmail.com\", \"subject\": \"foo bar baz\", \"body\": \"<html><body><h1>Hello World</h1></body></html>\"}" -H"Content-Type: application/json" localhost:8080/create
 ```
 
 ## Assumptions/Constraints/Decisions
