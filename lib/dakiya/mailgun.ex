@@ -1,6 +1,6 @@
 defmodule Dakiya.Mailgun do
   def send_email(err = {:error, _}), do: err
-  def send_email(data) do
+  def send_email({:ok, data}) do
     api_key     = System.get_env("MAILGUN_API_KEY")
     domain_name = System.get_env("MAILGUN_DOMAIN_NAME")
     base_url    = "https://api:#{api_key}@api.mailgun.net/v3/#{domain_name}"

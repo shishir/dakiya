@@ -22,11 +22,11 @@ defmodule DakiyaTest do
       html: "<html>foobar</html>",
     }
 
-    assert expected == transform(%{
+    assert {:ok, expected} == transform({:ok, %{
               "body" => "<html>foobar</html>",
               "subject" => "Example Email",
               "to" => "shishir.das@gmail.com"
-            })
+            }})
   end
 
   test "merge default parameters with passed in data" do
@@ -37,11 +37,11 @@ defmodule DakiyaTest do
       html: "<html>foobar</html>",
     }
 
-    assert expected == merge_defaults(%{
+    assert {:ok, expected} == merge_defaults({:ok, %{
       to: "shishir.das@gmail.com",
       subject: "Example Email",
       html: "<html>foobar</html>",
-    })
+    }})
   end
 
   test "validate user passed data" do
@@ -59,7 +59,7 @@ defmodule DakiyaTest do
       "subject" => "foobar",
       "template" => "password-reset"
     }
-    assert args == validate(args)
+    assert {:ok, args} == validate(args)
   end
 
   test "transform should load template if body is not present" do
@@ -75,7 +75,7 @@ defmodule DakiyaTest do
       html: "<html><body>Password Reset,Done!</body></html>",
     }
 
-    assert expected == transform(args)
+    assert {:ok, expected} == transform({:ok, args})
   end
 
   test "transform should load welcome-email template" do
@@ -91,7 +91,7 @@ defmodule DakiyaTest do
       html: "<html><body>Welcome, Fabulous</body></html>",
     }
 
-    assert expected == transform(args)
+    assert {:ok, expected} == transform({:ok, args})
   end
 
   test "send mail should return validation error" do
