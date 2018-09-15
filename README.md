@@ -7,6 +7,7 @@
   > cd dakiya
 
   # For building CLI executable
+  > mix deps.get
   > mix escript.build
 
   # For Running HTTP Server
