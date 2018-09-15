@@ -4,6 +4,8 @@
 
 ## Installation/Running
 ```
+  > export MAILGUN_API_KEY=<KEY>
+  > export MAILGUN_DOMAIN_NAME=<KEY>
   > cd dakiya
 
   # For building CLI executable
@@ -39,20 +41,20 @@
 ## Assumptions/Constraints/Decisions
 
 - **Part 1**:
- - validations are not exhaustive. It is demonstration how validation errors can be handled. Though outside implemented validations, the app assumes all other informations passed is valid.
+ - validations are not exhaustive. It is a demonstration of how validation errors can be handled. Though, the app assumes all other informations passed is valid.
  - help option not implemented. Time constraint.
 
 - **Part 2**
   - validations do not check for the validity of template variables or if the template exists. If implemented
   will follow the same pattern as other validation.
-  - Use **eex** for **templating**. It is part of elixir and sufficient for our use case.
+  - Used **eex** for **templating**. It is part of elixir and sufficient for our use case.
 
 - **Part 3**
-  - **Cowboy as HttpServer with Plug **. Plug over phoenix because its light weight and fast and is sufficient for the use case.
-  - No authentication implemented. Time constraint. In full blow system, we might want to provide ability for the user to generate api-token for using REST Api
+  - **Cowboy as HttpServer with Plug **. Plug over phoenix framework because its light weight and fast and is sufficient for the use case.
+  - No authentication implemented. Time constraint. In full blown system, we might want to provide ability for the user to generate api-token for using REST Api
   - Endpoints supported ```/create```. This will send the email via Mailgun.
 
-- ** Part 4 **
+- **Part 4**
   -
 
 
