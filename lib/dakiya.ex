@@ -4,7 +4,8 @@ defmodule Dakiya do
 
   def start(_type, _args) do
     children = [
-     {Plug.Adapters.Cowboy2, scheme: :http, plug: Dakiya.Router, options: [port: 8080]}
+     {Plug.Adapters.Cowboy2, scheme: :http, plug: Dakiya.Router, options: [port: 8080]},
+     Dakiya.Queue
     ]
 
     Logger.info("Started application")
